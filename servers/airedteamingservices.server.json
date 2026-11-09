@@ -1,0 +1,9 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.airedteamingservices/site",
+  "title": "AI application security research and assessments",
+  "description": "Read AI security guides and lab research, and request an LLM or AI agent security assessment.",
+  "version": "1.0.0",
+  "websiteUrl": "https://airedteamingservices.com/developers/",
+  "remotes": [{ "type": "streamable-http", "url": "https://airedteamingservices.com/mcp" }]
+}

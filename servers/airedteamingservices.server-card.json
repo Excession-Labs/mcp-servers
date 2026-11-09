@@ -1,0 +1,57 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/mcp-server-card/v1.json",
+  "name": "com.airedteamingservices/site",
+  "version": "1.0.0",
+  "title": "AI Red Teaming Services (read-only)",
+  "description": "Read-only MCP server for airedteamingservices.com: search and read the site, and find how to contact Excession Labs. No authentication.",
+  "websiteUrl": "https://airedteamingservices.com",
+  "serverInfo": {
+    "name": "airedteamingservices-mcp",
+    "title": "AI Red Teaming Services MCP",
+    "version": "1.0.0"
+  },
+  "transport": {
+    "type": "streamable-http",
+    "endpoint": "https://airedteamingservices.com/mcp",
+    "url": "https://airedteamingservices.com/mcp"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://airedteamingservices.com/mcp"
+    }
+  ],
+  "capabilities": {
+    "tools": {
+      "listChanged": false
+    },
+    "resources": {},
+    "prompts": {}
+  },
+  "authentication": {
+    "required": false,
+    "schemes": []
+  },
+  "tools": [
+    {
+      "name": "search_site",
+      "title": "Search airedteamingservices.com",
+      "description": "Search the guides, service pages and research on airedteamingservices.com. Returns titles, URLs and one-line summaries."
+    },
+    {
+      "name": "get_page",
+      "title": "Read a page as Markdown",
+      "description": "Return the Markdown text of a page on airedteamingservices.com, given its path (for example /guides/)."
+    },
+    {
+      "name": "how_to_contact",
+      "title": "How to contact Excession Labs",
+      "description": "Return the form URL and email address a person can use to contact Excession Labs. This tool does not send anything."
+    },
+    {
+      "name": "request_pentest",
+      "title": "Request a security test from Excession Labs",
+      "description": "Send a request for a penetration test or an AI application security assessment to Excession Labs on behalf of a person who asked for it. Needs an agent key (POST /agent/auth, then Authorization: Bearer <key>). Excession Labs replies to the person by email to agree scope; testing starts only after a written scope and written authorization from the system owner. Never include passwords, API keys or customer data. Limits: 5 requests a day per key, 3 a day per email address."
+    }
+  ]
+}

@@ -1,0 +1,176 @@
+[
+ {
+  "name": "search_site",
+  "title": "Search penetrationtestservices.com",
+  "description": "Search the guides, service pages and research on penetrationtestservices.com. Returns titles, URLs and one-line summaries.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "query": {
+     "type": "string",
+     "description": "Words to search for"
+    },
+    "limit": {
+     "type": "integer",
+     "minimum": 1,
+     "maximum": 20,
+     "default": 8
+    }
+   },
+   "required": [
+    "query"
+   ]
+  },
+  "annotations": {
+   "readOnlyHint": true,
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": false
+  }
+ },
+ {
+  "name": "get_page",
+  "title": "Read a page as Markdown",
+  "description": "Return the Markdown text of a page on penetrationtestservices.com, given its path (for example /guides/).",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "path": {
+     "type": "string",
+     "description": "Path starting with /"
+    }
+   },
+   "required": [
+    "path"
+   ]
+  },
+  "annotations": {
+   "readOnlyHint": true,
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": false
+  }
+ },
+ {
+  "name": "how_to_contact",
+  "title": "How to contact Excession Labs",
+  "description": "Return the form URL and email address a person can use to contact Excession Labs. This tool does not send anything.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {}
+  },
+  "annotations": {
+   "readOnlyHint": true,
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": false
+  }
+ },
+ {
+  "name": "request_pentest",
+  "title": "Request a security test from Excession Labs",
+  "description": "Send a request for a penetration test or an AI application security assessment to Excession Labs on behalf of a person who asked for it. Needs an agent key (POST /agent/auth, then Authorization: Bearer <key>). Excession Labs replies to the person by email to agree scope; testing starts only after a written scope and written authorization from the system owner. Never include passwords, API keys or customer data. Limits: 5 requests a day per key, 3 a day per email address.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "name": {
+     "type": "string",
+     "description": "The person's name"
+    },
+    "email": {
+     "type": "string",
+     "description": "The person's work email; Excession Labs replies here"
+    },
+    "company": {
+     "type": "string"
+    },
+    "website": {
+     "type": "string",
+     "description": "Company website"
+    },
+    "test_type": {
+     "type": "string",
+     "enum": [
+      "web_app",
+      "api",
+      "saas_multi_tenant",
+      "ai_application",
+      "other"
+     ]
+    },
+    "targets": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     },
+     "maxItems": 10,
+     "description": "Systems to test: URLs, API base URLs or short descriptions. No credentials."
+    },
+    "reason": {
+     "type": "string",
+     "enum": [
+      "customer_request",
+      "compliance",
+      "launch",
+      "routine",
+      "incident",
+      "other"
+     ]
+    },
+    "timeline": {
+     "type": "string",
+     "description": "When the person needs the result, in their words"
+    },
+    "notes": {
+     "type": "string",
+     "maxLength": 2000
+    },
+    "person_consent": {
+     "type": "boolean",
+     "description": "Must be true: the person asked for this request and agreed to be contacted by email"
+    },
+    "authorized": {
+     "type": "boolean",
+     "description": "Must be true: the person owns these systems or may arrange a test of them"
+    }
+   },
+   "required": [
+    "name",
+    "email",
+    "test_type",
+    "targets",
+    "person_consent",
+    "authorized"
+   ]
+  },
+  "annotations": {
+   "readOnlyHint": false,
+   "destructiveHint": false,
+   "idempotentHint": false,
+   "openWorldHint": true
+  }
+ },
+ {
+  "name": "check_security_headers",
+  "title": "Check a website's security headers",
+  "description": "Fetch one public web page (one GET per redirect, like a browser visit) and grade its HTTP security headers: HTTPS, HSTS, Content-Security-Policy, clickjacking protection, X-Content-Type-Options, Referrer-Policy, Permissions-Policy, COOP, version disclosure and cookie flags. Reads headers only. This is not a penetration test.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "url": {
+     "type": "string",
+     "description": "Public http or https address, for example https://example.com"
+    }
+   },
+   "required": [
+    "url"
+   ]
+  },
+  "annotations": {
+   "readOnlyHint": true,
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": true
+  }
+ }
+]
