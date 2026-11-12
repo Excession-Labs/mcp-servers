@@ -89,7 +89,8 @@
       "readOnlyHint": true,
       "destructiveHint": false,
       "idempotentHint": true,
-      "openWorldHint": false
+      "openWorldHint": false,
+      "title": "Search CVEs and software versions"
     }
   },
   {
@@ -128,7 +129,8 @@
       "readOnlyHint": true,
       "destructiveHint": false,
       "idempotentHint": true,
-      "openWorldHint": false
+      "openWorldHint": false,
+      "title": "Get a CVE with source evidence"
     }
   },
   {
@@ -173,7 +175,8 @@
       "readOnlyHint": true,
       "destructiveHint": false,
       "idempotentHint": true,
-      "openWorldHint": false
+      "openWorldHint": false,
+      "title": "Read hosted CVE revision history"
     }
   },
   {
@@ -190,7 +193,8 @@
       "readOnlyHint": true,
       "destructiveHint": false,
       "idempotentHint": true,
-      "openWorldHint": false
+      "openWorldHint": false,
+      "title": "Check CVE collection health"
     }
   },
   {
@@ -207,7 +211,8 @@
       "readOnlyHint": true,
       "destructiveHint": false,
       "idempotentHint": true,
-      "openWorldHint": false
+      "openWorldHint": false,
+      "title": "List vulnerability data sources"
     }
   },
   {
@@ -250,7 +255,8 @@
       "readOnlyHint": true,
       "destructiveHint": false,
       "idempotentHint": true,
-      "openWorldHint": false
+      "openWorldHint": false,
+      "title": "Read new and changed CVE records"
     }
   }
 ]
