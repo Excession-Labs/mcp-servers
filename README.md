@@ -40,6 +40,14 @@ claude mcp add --transport http penetrationtestservices https://penetrationtests
 claude mcp add --transport http airedteamingservices https://airedteamingservices.com/mcp
 ```
 
+Gemini CLI users can install the CVE-only extension from this repository:
+
+```sh
+gemini extensions install https://github.com/Excession-Labs/mcp-servers
+```
+
+The extension connects only to the six read-only CVE tools and needs no account or API key.
+
 [Add to Kiro](https://kiro.dev/launch/mcp/add?name=Excession%20Labs%20CVE%20intelligence&config=%7B%22url%22%3A%22https%3A%2F%2Fexcessionlabs.ai%2Fmcp%2Fcve%22%2C%22disabled%22%3Afalse%2C%22autoApprove%22%3A%5B%5D%7D)
 
 Excession Labs also publishes security review skills and related site connectors at https://github.com/Excession-Labs/claude-plugins.

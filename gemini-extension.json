@@ -1,0 +1,10 @@
+{
+  "name": "excession-cve",
+  "version": "1.0.0",
+  "description": "Search CVEs and source software/version evidence with free, read-only hosted tools.",
+  "mcpServers": {
+    "excession-cve": {
+      "httpUrl": "https://excessionlabs.ai/mcp/cve"
+    }
+  }
+}
