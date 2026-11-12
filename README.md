@@ -60,7 +60,9 @@ MCP clients perform initialization before tool calls. A complete initialization 
 
 Provider facts come from each provider's own public pages, with the date checked: https://github.com/Excession-Labs/pentest-provider-dataset. Excession Labs publishes PentestCompare and also sells security testing; its own row is marked `publisher_owned`.
 
-CVE records retain their source references. The import baseline has more than 424,000 CVE records and about 1.57 million software/version assertions. These are baseline counts, not a claim of complete enrichment or distinct software versions. Read `cve_status` for the current counts, per-source checkpoints and backlog. Software/version searches match source assertions; they do not evaluate whether an installed version falls within a vulnerability range. Hosted revision history begins at the cutover date returned by the server.
+CVE records retain their source references. The import baseline has more than 424,000 CVE records and about 1.57 million software/version assertions. These are baseline counts, not a claim of complete enrichment or distinct software versions. Read `cve_status` for the current counts, per-source checkpoints and backlog. Software/version searches match source assertions; they do not evaluate whether an installed version falls within a vulnerability range. Hosted revision history begins at the cutover date returned by the server. Initial hosted observations establish a baseline and do not necessarily mean the upstream advisory changed.
+
+The hosted collector runs every ten minutes in bounded batches. Source schedules differ, and catch-up can take several runs. EPSS refresh rotates through recent and KEV-listed CVEs; other scores retain their snapshot dates. Retained revisions normalize source evidence and preserve shared `affected_groups` referenced by version claims' `group_id` values.
 
 See the [CVE guide](docs/cve-intelligence.md#sources-and-coverage) for source attribution and coverage limits.
 

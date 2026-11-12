@@ -305,7 +305,7 @@
   {
     "name": "cve_history",
     "title": "Read hosted CVE revision history",
-    "description": "Read source revisions retained after the hosted database's history start date. The initial snapshot is not a complete historical archive. Inspect returned coverage and pagination.",
+    "description": "Read normalized source revisions retained after hosted monitoring starts. Version claims can refer to shared affected_groups by group_id. Initial hosted observations establish a baseline; the initial snapshot is not a complete historical archive. Inspect returned coverage and pagination.",
     "inputSchema": {
       "type": "object",
       "properties": {
