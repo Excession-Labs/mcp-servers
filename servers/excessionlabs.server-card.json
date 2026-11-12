@@ -1,0 +1,18 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/v1/server-card.schema.json",
+  "name": "ai.excessionlabs/site",
+  "title": "Excession Labs: CVE intelligence and security research",
+  "version": "1.3.0",
+  "description": "Search CVE intelligence, software/version evidence and public security research from Excession Labs. Read-only CVE tools need no key; requesting a security test requires an agent key.",
+  "websiteUrl": "https://excessionlabs.ai/",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://excessionlabs.ai/mcp",
+      "supportedProtocolVersions": ["2025-03-26", "2025-06-18", "2025-11-25"]
+    }
+  ],
+  "_meta": {
+    "ai.excessionlabs/discoveryStatus": "Experimental MCP Server Card extension (SEP-2127). The transport implements the explicitly listed stable MCP versions."
+  }
+}

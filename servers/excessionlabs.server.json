@@ -1,0 +1,21 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "ai.excessionlabs/site",
+  "title": "Excession Labs: CVE intelligence and security research",
+  "description": "Search CVEs, source software/version evidence, KEV, EPSS and public security research.",
+  "version": "1.3.0",
+  "websiteUrl": "https://excessionlabs.ai/cve-intelligence/",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://excessionlabs.ai/mcp"
+    }
+  ],
+  "icons": [
+    {
+      "src": "https://excessionlabs.ai/icon-512.png",
+      "mimeType": "image/png",
+      "sizes": ["512x512"]
+    }
+  ]
+}

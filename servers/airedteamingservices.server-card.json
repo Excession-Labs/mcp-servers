@@ -2,8 +2,8 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/mcp-server-card/v1.json",
   "name": "com.airedteamingservices/site",
   "version": "1.0.0",
-  "title": "AI Red Teaming Services (read-only)",
-  "description": "Read-only MCP server for airedteamingservices.com: search and read the site, and find how to contact Excession Labs. No authentication.",
+  "title": "AI Red Teaming Services",
+  "description": "Search and read airedteamingservices.com and find how to contact Excession Labs. Reading needs no key; request_pentest sends an AI application assessment request and requires an agent key.",
   "websiteUrl": "https://airedteamingservices.com",
   "serverInfo": {
     "name": "airedteamingservices-mcp",

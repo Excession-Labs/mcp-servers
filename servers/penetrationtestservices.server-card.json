@@ -2,8 +2,8 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/mcp-server-card/v1.json",
   "name": "com.penetrationtestservices/site",
   "version": "1.0.0",
-  "title": "Penetration Test Services (read-only)",
-  "description": "Read-only MCP server for penetrationtestservices.com: search and read the site, and find how to contact Excession Labs. No authentication.",
+  "title": "Penetration Test Services",
+  "description": "Search and read penetrationtestservices.com, check public security headers, and find how to contact Excession Labs. Reading needs no key; request_pentest sends a request and requires an agent key.",
   "websiteUrl": "https://penetrationtestservices.com",
   "serverInfo": {
     "name": "penetrationtestservices-mcp",

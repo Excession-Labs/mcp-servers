@@ -1,0 +1,427 @@
+[
+  {
+    "name": "search_site",
+    "title": "Search excessionlabs.ai",
+    "description": "Search the public pages and research notes on excessionlabs.ai. Returns titles, URLs and one-line summaries.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "description": "Words to search for, for example 'security assessment' or 'authorization testing'"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 20,
+          "default": 8,
+          "description": "Maximum number of results to return (1 to 20, default 8)"
+        }
+      },
+      "required": [
+        "query"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "get_page",
+    "title": "Get a page as Markdown",
+    "description": "Read one public page of excessionlabs.ai as Markdown. Use a path from search_site or llms.txt.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300,
+          "description": "Page path or full URL on excessionlabs.ai, for example '/', '/about/' or '/security-assessment/'"
+        }
+      },
+      "required": [
+        "path"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "how_to_contact",
+    "title": "How to contact Excession Labs",
+    "description": "Return the ways a person can contact Excession Labs: the request form, email, and the request_security_test tool for agents.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "request_security_test",
+    "title": "Request a security test from Excession Labs",
+    "description": "Send a request for a security test (web application, API, multi-tenant SaaS isolation or AI application) to Excession Labs on behalf of a person who asked for it. Needs an agent key (POST https://excessionlabs.ai/agent/auth, then Authorization: Bearer <key>). Excession Labs replies to the person by email to agree scope; testing starts only after a written scope and written authorization from the system owner. Never include passwords, API keys or customer data. Limits: 5 requests a day per key, 3 a day per email address.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 120,
+          "description": "The person's name"
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 200,
+          "description": "The person's work email; Excession Labs replies here"
+        },
+        "company": {
+          "type": "string",
+          "maxLength": 160,
+          "description": "The person's company or organization name"
+        },
+        "website": {
+          "type": "string",
+          "maxLength": 300,
+          "description": "Company website"
+        },
+        "test_type": {
+          "type": "string",
+          "enum": [
+            "web_app",
+            "api",
+            "saas_multi_tenant",
+            "ai_application",
+            "other"
+          ],
+          "description": "Kind of test: web_app, api, saas_multi_tenant, ai_application (LLM app or agent) or other"
+        },
+        "targets": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 300
+          },
+          "minItems": 1,
+          "maxItems": 10,
+          "description": "Systems to test: URLs, API base URLs or short descriptions. No credentials."
+        },
+        "reason": {
+          "type": "string",
+          "enum": [
+            "customer_request",
+            "compliance",
+            "launch",
+            "routine",
+            "incident",
+            "other"
+          ],
+          "description": "Why the person needs the test"
+        },
+        "timeline": {
+          "type": "string",
+          "maxLength": 120,
+          "description": "When the person needs the result, in their words"
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 2000,
+          "description": "Other context from the person, up to 2,000 characters. No credentials or customer data."
+        },
+        "person_consent": {
+          "type": "boolean",
+          "description": "Must be true: the person asked for this request and agreed to be contacted by email"
+        },
+        "authorized": {
+          "type": "boolean",
+          "description": "Must be true: the person owns these systems or may arrange a test of them"
+        }
+      },
+      "required": [
+        "name",
+        "email",
+        "test_type",
+        "targets",
+        "person_consent",
+        "authorized"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "cve_search",
+    "title": "Search CVEs and software versions",
+    "description": "Search the hosted Excession Labs CVE database. Choose recent modification, new publication, or known-exploitation priority. Software/version filters match source assertions; they do not evaluate whether an installation is affected.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 200,
+          "description": "Substring to find in the indexed CVE text, at least three characters"
+        },
+        "vendor": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "description": "Exact source vendor name, case-insensitive"
+        },
+        "product": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "description": "Exact source product name, case-insensitive"
+        },
+        "package": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "description": "Exact source package name, case-insensitive"
+        },
+        "ecosystem": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "description": "Exact source ecosystem name, case-insensitive"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "description": "Literal source version value; version ranges are returned as evidence, not evaluated"
+        },
+        "kev": {
+          "type": "boolean",
+          "description": "True selects CISA KEV members; false selects records known not to be listed"
+        },
+        "sort": {
+          "type": "string",
+          "enum": [
+            "priority",
+            "recent",
+            "published"
+          ],
+          "default": "priority",
+          "description": "priority orders known exploitation first; recent orders source modifications; published orders new publication dates"
+        },
+        "published_since": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "description": "Inclusive UTC publication date or ISO timestamp, for example 2026-11-01"
+        },
+        "include_unaffected": {
+          "type": "boolean",
+          "default": false,
+          "description": "Include software assertions explicitly marked unaffected or fixed"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50,
+          "default": 20,
+          "description": "Maximum results in this page, from 1 to 50"
+        },
+        "offset": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000,
+          "default": 0,
+          "description": "Result offset, up to 10000; use specific filters for broad queries"
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "cve_get",
+    "title": "Get a CVE with source evidence",
+    "description": "Read a CVE's descriptions, severity, affected software/version evidence, source references, KEV and EPSS. Large affected-software lists are paginated; inspect the returned cursor and completeness fields.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "cve_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32,
+          "description": "CVE identifier, for example CVE-2024-3094"
+        },
+        "affected_after": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0,
+          "description": "Cursor returned by the preceding page; zero starts at the beginning"
+        },
+        "affected_limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50,
+          "default": 20,
+          "description": "Maximum results in this page, from 1 to 50"
+        }
+      },
+      "required": [
+        "cve_id"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "cve_history",
+    "title": "Read hosted CVE revision history",
+    "description": "Read source revisions retained after the hosted database's history start date. The initial snapshot is not a complete historical archive. Inspect returned coverage and pagination.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "cve_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32,
+          "description": "CVE identifier, for example CVE-2024-3094"
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "description": "Optional source identifier, such as cve_list_v5 or nvd"
+        },
+        "after": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0,
+          "description": "Cursor returned by the preceding page; zero starts at the beginning"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50,
+          "default": 20,
+          "description": "Maximum results in this page, from 1 to 50"
+        }
+      },
+      "required": [
+        "cve_id"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "cve_status",
+    "title": "Check CVE collection health",
+    "description": "Read corpus counts, source coverage, collection errors, freshness and saved update checkpoints. A successful bounded query does not imply complete upstream coverage.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "cve_sources",
+    "title": "List vulnerability data sources",
+    "description": "Read the hosted source catalog, attribution, update methods and coverage limits.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "cve_changes",
+    "title": "Read new and changed CVE records",
+    "description": "Read hosted changes after a saved sequence cursor. Process the page before resuming with next_after. This is a read-only feed; it does not create a notification subscription.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "after": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0,
+          "description": "Cursor returned by the preceding page; zero starts at the beginning"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50,
+          "default": 20,
+          "description": "Maximum results in this page, from 1 to 50"
+        },
+        "cve_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32,
+          "description": "CVE identifier, for example CVE-2024-3094"
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "description": "Optional source identifier"
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    }
+  }
+]
